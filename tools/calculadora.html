@@ -1,0 +1,418 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Precios - Peluquería</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    #opciones-Corte-el-ella,
+    #opciones-Coloracion-el-ella,
+    #opciones-Corte-el,
+    #opciones-Corte-ella,
+    #opciones-Coloracion-el,
+    #opciones-Coloracion-ella {
+      display: none;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #EDEDEE;
+      color: #404040;
+      padding: 20px;
+      margin: auto;
+      max-width: 800px;
+    }
+
+    h2 {
+      color: #B1725E;
+      font-size: 2em;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .seccion, .opciones {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    select, input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 6px;
+      border: 1px solid #B1725E;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+
+    .opciones {
+      display: none;
+    }
+
+    input[type="checkbox"] {
+      margin-right: 8px;
+    }
+
+    button {
+      background-color: #B1725E;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #a16050;
+    }
+
+    #resultado {
+      text-align: center;
+      font-size: 1.5em;
+      font-weight: 600;
+      color: #B1725E;
+    }
+
+    .separator {
+      border-top: 2px solid #B1725E;
+      margin: 40px 0 20px;
+    }
+
+    .botones {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .grupo-botones {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+
+      h2 {
+        font-size: 1.5em;
+      }
+
+      .grupo-botones {
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+      }
+
+      button {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+    #toast {
+    visibility: hidden;
+    min-width: 300px;
+    background-color: #B1725E;
+    color: #f9f9f9;
+    text-align: center;
+    border-radius: 8px;
+    padding: 14px 20px;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    font-weight: 600;
+    font-size: 0.95em;
+  }
+
+  #toast.show {
+    visibility: visible;
+    animation: fadein 0.5s, fadeout 0.5s 3.5s;
+  }
+
+  @keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+  }
+
+  @keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+  }
+
+  </style>
+</head>
+
+<body>
+  <h2>CALCULADORA DE PRESUPUESTO</h2>
+
+  <div class="seccion">
+    <label>SERVICIOS:</label>
+    <label><input type="checkbox" class="servicio" value="Corte"> Corte</label>
+    <label><input type="checkbox" class="servicio" value="Coloracion"> Coloración</label>
+    <label><input type="checkbox" class="servicio" value="Mechas"> Mechas</label>
+    <label><input type="checkbox" class="servicio" value="Bioplastia"> Bioplastia</label>
+    <label><input type="checkbox" class="servicio" value="Tratamientos"> Tratamientos</label>
+  </div>
+
+  <div class="botones" id="opciones-Corte-el-ella">
+    <label>CORTE <br>
+    <div class="grupo-botones">
+      <button>PARA ÉL</button>
+      <button>PARA ELLA</button>
+    </div>
+    </label>
+  </div>
+  
+
+  <div class="opciones" id="opciones-Corte-el">
+    <label>
+      <select id="el">
+        <option value="adulto">Adulto (desde 18.00)</option>
+        <option value="niño">Niño (desde 13.90)</option>
+        <option value="barba">Retoque Barba (desde 9.40)</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="opciones" id="opciones-Corte-ella">
+    <label>
+      <select id="ella">
+        <option value="adulto">Adulto (desde 29.90)</option>
+        <option value="niño">Niña (desde 29.95; incluye lavado y secado)</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="botones" id="opciones-Coloracion-el-ella">
+    <label>COLORACIÓN  <br>
+    <div class="grupo-botones">
+      <button>PARA ÉL</button>
+      <button>PARA ELLA</button>
+    </div>
+    </label>
+  </div>
+  
+  
+
+  <div class="opciones" id="opciones-Coloracion-el">
+    <label>
+      <select id="color-el">
+        <option value="atenuarCanas">Atenuar canas (desde 15.00)</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="opciones" id="opciones-Coloracion-ella">
+    <label>
+      <select id="color-ella">
+        <option value="tinteCompleto">Coloración Ácida (desde 25.15)</option>
+        <option value="banoDeColor">Contorno (desde 15.50)</option>
+        <option value="fantasia">Decoloración (desde 39.95)</option>
+        <option value="fantasia">Color 3D (desde 55.65)</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="opciones" id="opciones-Mechas">
+    <label>TÉCNICA:
+      <select id="tecnicaMechas">
+        <option value="balayage">Balayage (desde 45.00)</option>
+        <option value="babylights">Babylights (desde 50.00)</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="opciones" id="opciones-Tratamientos">
+    <label>TIPO DE TRATAMIENTO:
+      <select id="tipoTratamiento">
+      <option value="premier">Premier (desde 39.90)</option>
+      <option value="fusiodose">Fusio-dose (desde 39.90)</option>
+      <option value="glossylolita">Glossy Lolita (desde 39.90)</option>
+      <option value="maskKerastase">Mask Kérastase (10.00)</option>
+    </select>
+
+    </label>
+  </div>
+  <div class="opciones" id="opciones-Bioplastia">
+    <label>LONGITUD DEL CABELLO:
+      <select id="longitudBioplastia">
+        <option value="Corto">Corto (desde 115€)</option>
+        <option value="Mediano">Mediano (desde 145€)</option>
+        <option value="Largo">Largo (desde 175€)</option>
+      </select>
+    </label>
+  </div>
+  
+  <div class="separator"></div>
+
+
+  <button onclick="calcularPrecio()">CALCULAR</button>
+  <h3 id="resultado">Total: 0€</h3>
+  <p id="nota" style="text-align: center; font-size: 0.9em; color: #666; margin-top: 10px;">
+  * Este es un presupuesto orientativo. El precio final puede variar según el diagnóstico profesional en el salón.
+</p>
+<div id="toast">⚠️ Este es un presupuesto orientativo. El precio final puede variar según el diagnóstico profesional en el salón.</div>
+
+
+
+  <script>
+    const precios = {
+    corte: {
+      el: {
+        adulto: 18.00,
+        niño: 13.90,
+        barba: 9.40
+      },
+      ella: {
+        adulto: 29.90,
+        niño: 29.90
+      }
+    },
+    coloracion: {
+      el: {
+        atenuarCanas: 15.00
+      },
+      ella: {
+        tinteCompleto: 29.95,
+        banoDeColor: 15.50,
+        fantasia: 39.95,
+        color3d: 55.65
+      }
+    },
+    mechas: {
+      balayage: 45.00,
+      babylights: 50
+    },
+    tratamientos: {
+      premier: 39.90,
+      fusiodose: 39.90,
+      glossylolita: 39.90,
+      maskKerastase: 10.00
+    }
+,
+    champu: {
+      normal: 0,
+      loreal: 3,
+      kerastase: 6
+    }
+  };
+
+    // Mostrar/ocultar secciones según el servicio
+    document.querySelectorAll('.servicio').forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+      const servicio = checkbox.value;
+      const seccionGenero = document.getElementById(`opciones-${servicio}-el-ella`);
+      const seccionSimple = document.getElementById(`opciones-${servicio}`);
+
+      if (checkbox.checked) {
+        if (seccionGenero) seccionGenero.style.display = 'block'; // Mostrar botones ÉL/ELLA
+        if (seccionSimple) seccionSimple.style.display = 'block'; // Mostrar opciones directas
+      } else {
+        // Ocultar botones y selects relacionados
+        if (seccionGenero) {
+          seccionGenero.style.display = 'none';
+          const el = document.getElementById(`opciones-${servicio}-el`);
+          const ella = document.getElementById(`opciones-${servicio}-ella`);
+          if (el) el.style.display = 'none';
+          if (ella) ella.style.display = 'none';
+        }
+        if (seccionSimple) seccionSimple.style.display = 'none';
+      }
+    });
+  });
+
+  // Mostrar select de ÉL o ELLA al pulsar los botones correspondientes
+  document.querySelectorAll('.botones button').forEach(button => {
+    button.addEventListener('click', () => {
+      const genero = button.textContent.includes('ÉL') ? 'el' : 'ella';
+      const contenedorId = button.closest('.botones').id;
+      const servicio = contenedorId.replace('opciones-', '').replace('-el-ella', '');
+
+      // Mostrar el <select> adecuado y ocultar el otro
+      const el = document.getElementById(`opciones-${servicio}-el`);
+      const ella = document.getElementById(`opciones-${servicio}-ella`);
+      if (el) el.style.display = genero === 'el' ? 'block' : 'none';
+      if (ella) ella.style.display = genero === 'ella' ? 'block' : 'none';
+    });
+  });
+
+  // Lógica de cálculo de precio
+  function calcularPrecio() {
+    let total = 0;
+
+    // CORTE
+    if (document.querySelector('input[value="Corte"]').checked) {
+      const el = document.getElementById('el');
+      const ella = document.getElementById('ella');
+      if (el && el.parentElement.parentElement.style.display === 'block') {
+        total += precios.corte.el[el.value];
+      } else if (ella && ella.parentElement.parentElement.style.display === 'block') {
+        total += precios.corte.ella[ella.value];
+      }
+    }
+
+    // COLORACIÓN
+    if (document.querySelector('input[value="Coloracion"]').checked) {
+      const colorEl = document.getElementById('color-el');
+      const colorElla = document.getElementById('color-ella');
+      if (colorEl && colorEl.parentElement.parentElement.style.display === 'block') {
+        total += precios.coloracion.el[colorEl.value];
+      } else if (colorElla && colorElla.parentElement.parentElement.style.display === 'block') {
+        const val = colorElla.value;
+        // NOTA: hay dos opciones con value="fantasia", así que sumamos el primero que coincida
+        if (val === 'fantasia') total += precios.coloracion.ella.fantasia;
+        else total += precios.coloracion.ella[val];
+      }
+    }
+
+    // MECHAS
+    if (document.querySelector('input[value="Mechas"]').checked) {
+      const tecnica = document.getElementById('tecnicaMechas').value;
+      total += precios.mechas[tecnica];
+    }
+
+    // BIOPLASTIA
+    if (document.querySelector('input[value="Bioplastia"]').checked) {
+      const longitud = document.getElementById('longitudBioplastia').value;
+      if (longitud === 'Corto') total += 115;
+      else if (longitud === 'Mediano') total += 145;
+      else if (longitud === 'Largo') total += 175;
+    }
+
+    // TRATAMIENTOS
+    if (document.querySelector('input[value="Tratamientos"]').checked) {
+      const tipo = document.getElementById('tipoTratamiento').value;
+      total += precios.tratamientos[tipo];
+    }
+
+
+    document.getElementById('resultado').textContent = `Total: ${total.toFixed(2)}€`;
+    // Mostrar toast de advertencia
+    mostrarToast();
+
+    function mostrarToast() {
+      const toast = document.getElementById("toast");
+      toast.className = "show";
+      setTimeout(() => {
+        toast.className = toast.className.replace("show", "");
+      }, 4000);
+    }
+
+  }
+  </script>
+</body>
+</html>
