@@ -136,3 +136,30 @@ canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 
 });
+
+// =============================
+// SCROLL ANIMATION
+// =============================
+
+const reveals = document.querySelectorAll(".project");
+
+function revealOnScroll(){
+
+const trigger = window.innerHeight * 0.85;
+
+reveals.forEach(section => {
+
+const top = section.getBoundingClientRect().top;
+
+if(top < trigger){
+section.classList.add("visible");
+section.classList.add("reveal");
+}
+
+});
+
+}
+
+window.addEventListener("scroll", revealOnScroll);
+
+revealOnScroll();

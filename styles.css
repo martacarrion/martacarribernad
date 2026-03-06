@@ -1,6 +1,6 @@
-/* ============================= */
+/* ================================================= */
 /* GLOBAL */
-/* ============================= */
+/* ================================================= */
 
 body{
 font-family:'Inter',sans-serif;
@@ -8,6 +8,12 @@ margin:0;
 background:#0b0b0b;
 color:#f5f5f5;
 font-weight:300;
+
+/* transición suave entre páginas */
+
+opacity:0;
+animation:fadePage 0.6s ease forwards;
+
 }
 
 header{
@@ -15,9 +21,10 @@ padding:80px 80px 30px;
 }
 
 
-/* ============================= */
+
+/* ================================================= */
 /* NAVIGATION */
-/* ============================= */
+/* ================================================= */
 
 nav{
 display:flex;
@@ -40,9 +47,10 @@ font-size:14px;
 }
 
 
-/* ============================= */
+
+/* ================================================= */
 /* HERO */
-/* ============================= */
+/* ================================================= */
 
 .hero{
 display:flex;
@@ -76,9 +84,10 @@ filter:grayscale(0%);
 }
 
 
-/* ============================= */
+
+/* ================================================= */
 /* BUTTONS */
-/* ============================= */
+/* ================================================= */
 
 .button{
 display:inline-block;
@@ -97,9 +106,10 @@ color:#0b0b0b;
 }
 
 
-/* ============================= */
+
+/* ================================================= */
 /* INDEX PROJECT GRID */
-/* ============================= */
+/* ================================================= */
 
 .projects{
 display:grid;
@@ -109,9 +119,13 @@ padding:0 80px 80px;
 }
 
 .card{
+
 text-decoration:none;
 color:#f5f5f5;
 display:block;
+position:relative;
+overflow:hidden;
+
 }
 
 .card img{
@@ -119,11 +133,35 @@ width:100%;
 height:260px;
 object-fit:cover;
 border-radius:8px;
-transition:0.3s;
+transition:transform 0.6s ease;
 }
 
-.card img:hover{
-transform:scale(1.03);
+.card:hover img{
+transform:scale(1.08);
+}
+
+.card::after{
+
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+
+background:linear-gradient(
+to top,
+rgba(0,0,0,0.6),
+transparent 40%
+);
+
+opacity:0;
+transition:0.4s;
+
+}
+
+.card:hover::after{
+opacity:1;
 }
 
 .card h3{
@@ -140,9 +178,10 @@ max-width:350px;
 }
 
 
-/* ============================= */
-/* VIDEO GRID */
-/* ============================= */
+
+/* ================================================= */
+/* VIDEO GRID (GLOBAL) */
+/* ================================================= */
 
 .video-grid{
 display:grid;
@@ -170,7 +209,7 @@ width:100%;
 aspect-ratio:4/5;
 object-fit:cover;
 border-radius:10px;
-transition:0.3s;
+transition:0.4s;
 }
 
 .video-card img:hover{
@@ -190,9 +229,44 @@ margin-top:4px;
 }
 
 
-/* ============================= */
+
+/* ================================================= */
+/* VIDEO CARD VARIANTS */
+/* ================================================= */
+
+.video-card.vertical img{
+aspect-ratio:4/5;
+}
+
+.video-card.horizontal img{
+aspect-ratio:16/9;
+}
+
+
+
+/* ================================================= */
+/* AUDIOVISUAL VIDEO GRID */
+/* ================================================= */
+
+.video-grid-horizontal{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(420px,1fr));
+gap:60px;
+margin-top:70px;
+justify-items:center;
+
+}
+
+.video-card.horizontal{
+max-width:650px;
+}
+
+
+
+/* ================================================= */
 /* PHOTO GALLERY */
-/* ============================= */
+/* ================================================= */
 
 .photo-grid{
 display:grid;
@@ -215,9 +289,10 @@ transform:scale(1.05);
 }
 
 
-/* ============================= */
-/* PROJECT PAGE LAYOUT */
-/* ============================= */
+
+/* ================================================= */
+/* PROJECT PAGE */
+/* ================================================= */
 
 .project{
 max-width:1100px;
@@ -231,9 +306,10 @@ font-size:32px;
 }
 
 
-/* ============================= */
+
+/* ================================================= */
 /* SECTION TITLE */
-/* ============================= */
+/* ================================================= */
 
 .section-title{
 position:relative;
@@ -269,80 +345,10 @@ animation:lightLine 4s linear infinite;
 }
 
 
-/* ============================= */
-/* LIVE WEBSITE CARD */
-/* ============================= */
 
-.live-site{
-margin:60px auto 80px;
-max-width:900px;
-display:flex;
-flex-direction:column;
-align-items:center;
-}
-
-.live-tag{
-font-size:12px;
-letter-spacing:2px;
-color:#888;
-margin-bottom:14px;
-}
-
-.live-box{
-display:flex;
-justify-content:space-between;
-align-items:center;
-width:100%;
-max-width:650px;
-padding:22px 28px;
-background:white;
-color:#0b0b0b;
-border-radius:12px;
-text-decoration:none;
-transition:0.3s;
-}
-
-.live-box:hover{
-transform:translateY(-4px);
-box-shadow:0 20px 50px rgba(0,0,0,0.6);
-}
-
-.live-domain{
-font-size:20px;
-font-weight:500;
-color:#0b0b0b;
-}
-
-.live-cta{
-font-size:14px;
-color:#333;
-}
-
-
-/* ============================= */
-/* CALCULATOR EMBED */
-/* ============================= */
-
-.calculator-embed{
-margin-top:60px;
-display:flex;
-justify-content:center;
-}
-
-.calculator-embed iframe{
-width:100%;
-max-width:800px;
-height:700px;
-border:none;
-border-radius:12px;
-box-shadow:0 20px 60px rgba(0,0,0,0.6);
-background:white;
-}
-
-
-/* ============================= */
+/* ================================================= */
 /* BACKGROUND PARTICLES */
-/* ============================= */
+/* ================================================= */
 
 #background{
 position:fixed;
@@ -356,9 +362,147 @@ opacity:0.8;
 }
 
 
+
 /* ============================= */
+/* TIMELINE */
+/* ============================= */
+
+.timeline{
+position:relative;
+margin-top:60px;
+padding-left:40px;
+}
+
+.timeline::before{
+content:"";
+position:absolute;
+left:10px;
+top:0;
+width:2px;
+height:100%;
+background:rgba(255,255,255,0.2);
+}
+
+.timeline-item{
+margin-bottom:40px;
+position:relative;
+}
+
+.timeline-item::before{
+content:"";
+position:absolute;
+left:-32px;
+top:6px;
+width:12px;
+height:12px;
+background:white;
+border-radius:50%;
+}
+
+.timeline-date{
+font-size:14px;
+color:#aaa;
+margin-bottom:6px;
+letter-spacing:1px;
+}
+
+.timeline-content h3{
+margin:0;
+font-size:20px;
+}
+
+.timeline-content p{
+margin-top:8px;
+color:#bbb;
+line-height:1.6;
+}
+
+
+
+/* ============================= */
+/* SCROLL REVEAL */
+/* ============================= */
+
+.reveal{
+
+opacity:0;
+transform:translateY(40px);
+transition:all 0.8s ease;
+
+}
+
+.reveal.visible{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+
+/* ============================= */
+/* CONTACT PAGE */
+/* ============================= */
+
+.contact-container{
+
+margin-top:60px;
+
+display:flex;
+
+flex-direction:column;
+
+gap:40px;
+
+align-items:center;
+
+}
+
+.contact-item h3{
+
+font-size:22px;
+
+margin-bottom:10px;
+
+}
+
+.contact-item a{
+
+color:#f5f5f5;
+
+text-decoration:none;
+
+border-bottom:1px solid rgba(255,255,255,0.3);
+
+padding-bottom:3px;
+
+transition:0.3s;
+
+}
+
+.contact-item a:hover{
+
+border-color:white;
+
+}
+
+
+/* ================================================= */
+/* PAGE TRANSITION */
+/* ================================================= */
+
+@keyframes fadePage{
+
+to{
+opacity:1;
+}
+
+}
+
+
+
+/* ================================================= */
 /* ANIMATIONS */
-/* ============================= */
+/* ================================================= */
 
 @keyframes lightLine{
 0%{left:-40%;}

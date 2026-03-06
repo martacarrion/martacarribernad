@@ -8,6 +8,8 @@
 
 <body>
 
+<canvas id="background"></canvas>
+
 <nav>
 <h2>MARTA</h2>
 <ul>
@@ -17,24 +19,69 @@
 </ul>
 </nav>
 
-<header>
+<header class="hero">
+
+<div class="hero-text">
+
 <h1>University Projects</h1>
-<p>Proyectos realizados durante el grado en Tecnología Digital y Multimedia.</p>
+
+<p>
+Proyectos desarrollados durante el grado en Tecnología Digital y Multimedia,
+explorando narrativa audiovisual, interacción y tecnologías de audio.
+</p>
+
+</div>
+
 </header>
+<section class="project">
 
-<section class="projects">
+<h2 class="section-title">Audio Binaural · Deseos para 2026</h2>
 
-<a href="../projects/binaural-audio.html" class="card">
-<img src="../media/images/practicas.jpeg">
-<h3>Proyecto Audio Binaural</h3>
+<p>
+Experimento audiovisual realizado con una cabeza binaural utilizada como micrófono.
+El proyecto se grabó en la Plaza del Ayuntamiento de Valencia, donde preguntamos
+a los transeúntes cuáles eran sus deseos para el año 2026.
+</p>
+
+<p>
+Las respuestas reflejan una gran diversidad de preocupaciones y esperanzas:
+desde derechos humanos hasta amor o bienestar personal. El vídeo transmite
+un mensaje sencillo pero profundo: a veces escuchar es el primer paso para
+mejorar el mundo.
+</p>
+
+<p>
+El audio binaural permite capturar sonido en <strong>360 grados</strong>,
+generando una sensación de presencia espacial que transporta al espectador
+al lugar de la grabación cuando utiliza auriculares.
+</p>
+
+<p>
+El vídeo comienza con una introducción inspirada en el cine mudo,
+filmada en blanco y negro, mostrando la preparación del equipo
+y el camino hacia la plaza antes de comenzar las entrevistas.
+</p>
+
+
+<div class="video-grid-horizontal">
+
+<a href="https://youtu.be/TDSGoHpzOE4" target="_blank" class="video-card horizontal">
+<img src="../media/images/entero-binaural.png">
+<h3>Vídeo completo</h3>
+<p>Experimento audiovisual con entrevistas · Audio binaural</p>
 </a>
 
-<a href="../projects/jump-analysis.html" class="card">
-<img src="../media/images/practicas.jpeg">
-<h3>Jump Analysis App</h3>
+<a href="https://youtu.be/2Yskcpm0HT8" target="_blank" class="video-card horizontal">
+<img src="../media/images/solo-binaural.png">
+<h3>Demostración de audio binaural</h3>
+<p>Fragmentos centrados en la experiencia sonora 360º</p>
 </a>
+
+</div>
 
 </section>
+
+<script src="../script.js"></script>
 
 </body>
 </html>
